@@ -1,6 +1,6 @@
 import * as axios from 'axios'
 
-const BASE_URL = 'http://localhost:8000'
+const BASE_URL = 'https://apiloviz.herokuapp.com/'
 
 function upload (formData) {
   const url = `${BASE_URL}/comentarioimgs/`

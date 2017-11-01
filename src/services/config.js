@@ -1,5 +1,5 @@
 const configService = {
-  apiUrl: 'http://localhost:8000'
+  apiUrl: 'https://apiloviz.herokuapp.com/'
 }
 
 export default configService
