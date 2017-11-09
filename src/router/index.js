@@ -13,6 +13,11 @@ import Envio from '@/views/pages/EnvioPage'
 import Terminos from '@/views/pages/Terminos'
 import Sobre from '@/views/pages/Sobre'
 
+import Felicidades from '@/views/checkout/Felicidad'
+
+import AddVariacion from '@/views/admin/AgregarVariacion'
+
+import PassReset from '@/views/perfil/UserResetPass'
 Vue.use(Router)
 
 export default new Router({
@@ -67,6 +72,21 @@ export default new Router({
       path: '/sobre-nosotros',
       name: 'Sobre',
       component: Sobre
+    },
+    {
+      path: '/password/reset/confirm/:uid/:token/',
+      name: 'Password Reset',
+      component: PassReset
+    },
+    {
+      path: '/add/producto/:slug/',
+      name: 'Add_Variacion',
+      component: AddVariacion
+    },
+    {
+      path: '/gracias/:numero_pedido/',
+      name: 'Felicidades',
+      component: Felicidades
     }
   ]
 })

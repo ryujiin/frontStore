@@ -127,6 +127,7 @@ export default {
         .then(res => {
           this.$Progress.finish()
           this.resetFields()
+          this.getUserPerfil()
         })
       })
     },

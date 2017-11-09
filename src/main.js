@@ -11,6 +11,8 @@ import VueProgressBar from 'vue-progressbar'
 import VeeValidate from 'vee-validate'
 import VueLocalStorage from 'vue-localstorage'
 import VueHead from 'vue-head'
+import VueScrollTo from 'vue-scrollto'
+import VueProgressiveImage from 'vue-progressive-image'
 
 const options = {
   color: '#23d160',
@@ -26,10 +28,23 @@ const options = {
   inverse: false
 }
 
+Vue.use(VueScrollTo, {
+  container: 'body',
+  duration: 500,
+  easing: 'ease',
+  offset: 0,
+  cancelable: true,
+  onDone: false,
+  onCancel: false,
+  x: false,
+  y: true
+})
+
 Vue.use(VueHead)
 Vue.use(VeeValidate)
 Vue.use(VueProgressBar, options)
 Vue.use(VueCookie)
+Vue.use(VueProgressiveImage)
 
 Vue.config.productionTip = false
 

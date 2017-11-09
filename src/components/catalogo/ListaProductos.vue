@@ -1,40 +1,49 @@
 <template lang="pug">
 div
-  .lista-productos.columns.is-multiline(v-if="productos.length !==0 ")
-    .producto.column.is-4(v-for="p in productos" v-if="aparecer(p)")
-      .card.hoverable
-        router-link(:to="`/producto/${p.slug}`")
-          .card-image
-            figure.image.is-3by2
-              .senales
-                .senal.oferta(v-if="p.es_oferta")
-                  a.btn-floating.btn-large.waves-effect.waves-light.red
-                    span.is-size-7 Oferta
-                .senal.nuevo(v-if="p.es_new")
-                  a.btn-floating.btn-large.waves-effect.waves-light.blue.lighten-1
-                    span.is-size-7 Nuevo
-              img(:src="p.thum1")
-              img.thum2(:src="p.thum2")
-          .card-content.has-text-centered
-            span.card-title {{p.nombre}}
-            br
-            span.has-text-weight-bold ({{p.texto_variacion}})
-            p.precios.is-size-5
-              span.old.has-text-danger.is-size-7(v-if="p.es_oferta") S/.{{p.precio_lista}}
-              span.venta S/.{{p.precio_venta}}
-            .estrellas.has-text-primary
-              span.icon(v-for="star in 5")              
-                i.fa.fa-star(v-if="star <=p.valor_producto")
-                i.fa.fa-star-o(v-else)
-  .productos-empty.has-text-centered(v-else)
-    p "Opps Lo sentimos, no se han encontrado resultados para su búsqueda"
+  .buscando(v-if="buscando")
+    lv-spinner
+  .encontrado(v-else)
+    .lista-productos.columns.is-multiline(v-if="productos.length !==0")
+      .producto.column.is-4(v-for="p in productos" v-if="aparecer(p)")
+        .card.hoverable
+          router-link(:to="`/producto/${p.slug}`")
+            .card-image
+              figure.image.is-4by3
+                .senales
+                  .senal.oferta(v-if="p.es_oferta")
+                    a.btn-floating.btn-large.waves-effect.waves-light.red
+                      span.is-size-7 Oferta
+                  .senal.nuevo(v-if="p.es_new")
+                    a.btn-floating.btn-large.waves-effect.waves-light.blue.lighten-1
+                      span.is-size-7 Nuevo
+                img(:src="p.thum1")
+                img.thum2(:src="p.thum2")
+            .card-content.has-text-centered
+              span.card-title {{p.nombre}}
+              br
+              span.has-text-weight-bold ({{p.texto_variacion}})
+              p.precios.is-size-5
+                span.old.has-text-danger.is-size-7(v-if="p.es_oferta") S/.{{p.precio_lista}}
+                span.venta S/.{{p.precio_venta}}
+              .estrellas.has-text-primary
+                span.icon(v-for="star in 5")              
+                  i.fa.fa-star(v-if="star <=p.valor_producto")
+                  i.fa.fa-star-o(v-else)
+    .productos-empty.has-text-centered(v-else)
+      p "Opps Lo sentimos, no se han encontrado resultados para su búsqueda"
 </template>
 
 <script>
 import lovizApiProductoService from '@/services/catalogo/productos'
+
+import lvSpinner from '@/components/shared/spinner'
+
 import {mapMutations} from 'vuex'
 
 export default {
+  components: {
+    lvSpinner
+  },
   name: 'Productos',
   props: {
     limite: {
@@ -74,13 +83,14 @@ export default {
   data () {
     return {
       productos: [],
-      query: {}
+      query: {},
+      buscando: true
     }
   },
   methods: {
     ...mapMutations(['asignarNumArticulos']),
     buscarServer () {
-      console.log(this.categoria)
+      this.buscando = true
       this.productos = []
       if (this.limite) {
         this.query.limite = this.limite
@@ -100,7 +110,7 @@ export default {
       lovizApiProductoService.getProductos(this.query)
       .then(res => {
         this.productos = res.results
-        console.log(res)
+        this.buscando = false
         this.asiganrNumeroCatalogo(res.count)
       })
     },
@@ -138,14 +148,15 @@ export default {
 <style lang="scss" scoped>
 .producto{
   cursor: pointer;
+  a{
+    color: #111;
+  }
   &:hover{
     .estrellas{
       opacity: 1;
       transform: translateY(0px)
     }
-  }
-  .card-image{
-    &:hover{
+    .card-image{
       .image{
         .thum2{
           opacity: 1;
@@ -153,6 +164,8 @@ export default {
         }
       }
     }
+  }
+  .card-image{
     .image{
       img{
         transition: opacity .5s, transform .5s;

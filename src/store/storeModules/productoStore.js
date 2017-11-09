@@ -14,15 +14,6 @@ const getters = {
 }
 
 const mutations = {
-  buscarProducto (state, slug) {
-    state.tallaSelecionada = {}
-    lovizProductoService.getProductoSingle({'slug': slug})
-      .then(res => {
-        if (res.count === 1) {
-          state.productoActual = res.results[0]
-        }
-      })
-  },
   selecionTalla (state, talla) {
     state.tallaSelecionada = talla
   },
@@ -32,6 +23,19 @@ const mutations = {
 }
 
 const actions = {
+  buscarProducto (context, slug) {
+    const promise = new Promise(function (resolve, reject) {
+      state.tallaSelecionada = {}
+      lovizProductoService.getProductoSingle({'slug': slug})
+        .then(res => {
+          if (res.count === 1) {
+            context.state.productoActual = res.results[0]
+          }
+          resolve(res)
+        })
+    })
+    return promise
+  }
 }
 
 export default {

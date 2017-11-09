@@ -33,8 +33,6 @@
       lv-separador(alto='50')
       lv-titulo(titulo="Otros Productos Interesantes", subtitulo="Continua Comprando")
       lv-lista-productos(categoria="destacados", limite="3", auto=true)
-
-
 </template>
 
 <script>

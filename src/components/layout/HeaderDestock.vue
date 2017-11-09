@@ -4,15 +4,17 @@ nav.navbar.header(role='navigation', aria-label='main navigation')
     .navbar-brand
       router-link.navbar-item(to='/')
         img(src="/static/img/logonegro.png" height="28")
-    .navbar-item.has-dropdown.is-hoverable(v-for="item in getTienda.menuTop")
+    .navbar-item.has-dropdown.is-hoverable(v-for="item in getTienda.menuTop" key="item.id")
       router-link.navbar-link(:to="item.link")
         | {{item.texto}}
         .navbar-dropdown.is-boxed(v-if="item.hijos")
-          router-link.navbar-item(v-for="item in item.hijos", :to="item.link")
+          router-link.navbar-item(v-for="item in item.hijos", :to="item.link", key="item.id")
             | {{item.texto}}
     .navbar-end
-      .navbar-item
-        lv-busqueda
+      a.navbar-item(@click="changeTiendaBusqueda")
+        span.icon
+          i.fa.fa-search
+        span Buscar
       router-link.navbar-item.italic(v-if="getPerfil.id" to="/perfil/")
         span {{getPerfil.first_name}} {{getPerfil.last_name}}
         span.icon.is-large
@@ -38,13 +40,14 @@ export default {
     ...mapGetters(['getCartNow', 'getPerfil', 'getTienda'])
   },
   methods: {
-    ...mapMutations(['changeCartSlide', 'changeModalLogin'])
+    ...mapMutations(['changeCartSlide', 'changeModalLogin', 'changeTiendaBusqueda'])
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .navbar{
+  z-index: 10;
   min-height: 4.25rem;
 }
 .navbar-item img{

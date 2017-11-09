@@ -23,7 +23,8 @@ export default {
   },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      cargando: true
     }
   },
   head: {
@@ -35,6 +36,12 @@ export default {
         name: 'description', content: 'Loviz DelCarpio :: Bienvenidos a nuestra tienda Online. Envio Gratis a Todo el Peru por compras superiores a S/. 50.00'
       }
     ]
+  },
+  created () {
+    var self = this
+    setTimeout(function () {
+      self.cargando = false
+    }, 4000)
   }
 }
 </script>

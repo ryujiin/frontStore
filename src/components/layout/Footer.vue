@@ -55,6 +55,7 @@ export default {
 
 <style lang="scss" scoped>
 footer{
+  margin-top: 30px;
   .main-footer{
     background-color: #000;
     color: #fff;

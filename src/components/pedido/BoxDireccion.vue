@@ -119,6 +119,12 @@ export default {
           console.log(res)
         })
       }
+    },
+    verificaDireccion () {
+      if (this.getPerfil.direcciones.length > 0) {
+        var ultima = this.getPerfil.direcciones.length - 1
+        this.direccion_actual = this.getPerfil.direcciones[ultima]
+      };
     }
   },
   mounted () {
@@ -126,7 +132,8 @@ export default {
   },
   watch: {
     'direccion_actual': 'changeDireccion',
-    'direccion': 'buscarMetodos'
+    'direccion': 'buscarMetodos',
+    'getPerfil.direcciones': 'verificaDireccion'
   }
 }
 </script>

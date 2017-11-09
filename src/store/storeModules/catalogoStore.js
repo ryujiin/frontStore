@@ -72,11 +72,17 @@ const mutations = {
 }
 const actions = {
   buscarCategorias (context, slug) {
-    lovizProductoService.getCategorias()
-    .then(res => {
-      context.commit('asignarCategorias', res.results)
-      context.commit('asignarCategoriaActual', slug)
+    const promise = new Promise(function (resolve, reject) {
+      lovizProductoService.getCategorias()
+      .then(res => {
+        context.commit('asignarCategorias', res.results)
+        if (slug) {
+          context.commit('asignarCategoriaActual', slug)
+        };
+        resolve(res)
+      })
     })
+    return promise
   },
   buscarEtiquetas (context) {
     console.log('wfnwiofnwofin')

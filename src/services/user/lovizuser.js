@@ -21,6 +21,16 @@ lovizApiUserService.getPerfil = function (token) {
     .catch(err => err.data)
 }
 
+lovizApiUserService.editNombre = function (token, datos) {
+  return lovizApiService.put(`/cliente/user/${datos.id}/`, datos, {
+    headers: {
+      'Authorization': 'JWT ' + token
+    }
+  })
+    .then(res => res.data)
+    .catch(err => err.data)
+}
+
 lovizApiUserService.crearDireccion = function (direccion) {
   const token = localStorage.getItem('token')
 
@@ -35,6 +45,18 @@ lovizApiUserService.crearDireccion = function (direccion) {
 
 lovizApiUserService.crearUser = function (cuenta) {
   return lovizApiService.post('/ajax/crear/', cuenta)
+  .then(res => res.data)
+  .catch(err => err.data)
+}
+
+lovizApiUserService.resetConfirmPass = function (dato) {
+  return lovizApiService.post('/auth/password/reset/confirm/', dato)
+  .then(res => res.data)
+  .catch(err => err.data)
+}
+
+lovizApiUserService.resetPass = function (dato) {
+  return lovizApiService.post('/auth/password/reset/', dato)
   .then(res => res.data)
   .catch(err => err.data)
 }

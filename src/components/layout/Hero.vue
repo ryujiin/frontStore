@@ -1,6 +1,6 @@
 <template lang="pug">
   .heros
-    .hero(v-for="hero in heros")
+    .hero.hero-home(v-for="hero in heros")
       .hero-content(v-if="hero.imagen", :class="hero.estilo_body")
         .hero-img(@click="goLink(hero.enlace)")
           .item-img(:style='{ backgroundImage: `url(${hero.imagen})` }')
@@ -44,7 +44,7 @@ export default {
 </script>
 
 <style lang="scss">
-.hero{
+.hero-home{
   overflow: hidden;
   width: 100%;
   min-height: 100px;

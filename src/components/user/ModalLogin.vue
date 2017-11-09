@@ -11,13 +11,17 @@
             a(@click="cambiar('register')") Registrarse
       transition(name="fade" mode="out-in")
         lv-login(v-if="tabs=='login'")
-        lv-register(v-else)
+        lv-register(v-if="tabs=='register'")
+        lv-olvido-pass(v-if="tabs=='olvido'")
+      p.has-text-centered(v-if="tabs=='login'")
+        a(@click="cambiar('olvido')") ¿Olvidó su contraseña?
   button.modal-close.is-large(aria-label='close')
 </template>
 
 <script>
 import lvLogin from '@/components/user/Login.vue'
 import lvRegister from '@/components/user/Register.vue'
+import lvOlvidoPass from '@/components/user/Olvido.vue'
 
 import {mapGetters, mapMutations, mapActions} from 'vuex'
 
@@ -29,7 +33,7 @@ export default {
     }
   },
   components: {
-    lvLogin, lvRegister
+    lvLogin, lvRegister, lvOlvidoPass
   },
   computed: {
     ...mapGetters(['getloginModal', 'getToken', 'getUserError'])

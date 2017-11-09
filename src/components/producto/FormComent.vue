@@ -44,12 +44,10 @@
               label.label Nombre
               .control
                 input.input(type="text" v-model='nombre' placeholder="Carlos Ramirez")
-          p.help Si no proporciona un nombre se le pondra Anonimo
         p.has-text-centered
           a.button.is-black(:disabled = "noListo" @click="onSubmit")
             span Enviar Comentario
         p.is-size-7 Cualquier correo electrónico incluirán la posibilidad de darse de baja de futuras comunicaciones.
-
       .contenido.pageLoad(v-if="enviando == 1")
         .spinner
           lv-spinner-timer

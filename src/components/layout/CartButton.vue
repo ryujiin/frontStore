@@ -3,6 +3,7 @@
     span.icon.is-large
       i.fa.fa-shopping-cart.fa-lg
       .numero {{getCartNow.num_lineas}}
+    span.is-hidden-mobile Carro
 </template>
 
 <script>
@@ -35,6 +36,11 @@ export default {
   mounted () {
     if (this.$cookie.get('sesion_carro')) {
       this.buscarCartCookie(this.$cookie.get('sesion_carro'))
+      .then(res => {
+        if (res.detail) {
+          this.$cookie.delete('sesion_carro')
+        };
+      })
     }
   },
   watch: {
@@ -49,8 +55,10 @@ export default {
 <style lang="scss" scoped>
 .cartbutton{
   cursor: pointer;
-  position: relative;
   display: inline-block;
+  .icon{
+    position: relative;
+  }
   .numero{
     background-color: green;
     color: #fff;

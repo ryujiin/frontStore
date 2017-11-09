@@ -157,9 +157,6 @@ export default {
     }
   },
   created () {
-    if (this.getCategorias.length === 0) {
-      this.buscarCategorias(this.$route.params.slug)
-    }
     this.changeCatalogoSlug()
   },
   watch: {

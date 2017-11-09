@@ -1,7 +1,10 @@
 <template lang="pug">
   #app
+    transition(name="fade")
+      lv-page-loader(v-if='getPageloading')
     vue-progress-bar
     lv-cart-slide
+    lv-menu-mobil-slide
     lv-header
     router-view
     lv-footer
@@ -9,15 +12,35 @@
 </template>
 
 <script>
+import lvPageLoader from '@/components/shared/PageLoader'
+
 import LvHeader from '@/components/layout/Header.vue'
 import LvFooter from '@/components/layout/Footer.vue'
 import lvModalLogin from '@/components/user/ModalLogin.vue'
 import LvCartSlide from '@/components/layout/CartSlide.vue'
+import lvMenuMobilSlide from '@/components/layout/MenuMobilSlide.vue'
+
+import {mapGetters, mapActions, mapMutations} from 'vuex'
 
 export default {
   name: 'app',
   components: {
-    LvHeader, LvFooter, lvModalLogin, LvCartSlide
+    LvHeader, LvFooter, lvModalLogin, LvCartSlide, lvPageLoader, lvMenuMobilSlide
+  },
+  computed: {
+    ...mapGetters(['getCategorias', 'getPageloading'])
+  },
+  methods: {
+    ...mapActions(['buscarCategorias']),
+    ...mapMutations(['changePageLoading'])
+  },
+  created () {
+    if (this.getCategorias.length === 0) {
+      this.buscarCategorias(this.$route.params.slug)
+      .then(res => {
+        this.changePageLoading(false)
+      })
+    }
   }
 }
 </script>
@@ -35,6 +58,16 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #111;
+  @media screen and (max-width: 1215px) {
+    margin-top: 60px;
+  }
+}
+// Transitions
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0
 }
 // animaciones
 .girar {

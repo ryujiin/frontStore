@@ -1,17 +1,27 @@
 <template lang="pug">
   header
+    lv-barra-admin(v-if="getPerfil.staff")
     lv-header-movil.is-hidden-desktop
     lv-header-destock.is-hidden-touch
+    transition(name="slidebusqueda")
+      lv-busqueda(v-if="getTiendaBusqueda")
 </template>
 
 <script>
 import lvHeaderMovil from '@/components/layout/HeaderMovil'
 import lvHeaderDestock from '@/components/layout/HeaderDestock'
+import lvBarraAdmin from '@/components/admin/BarraAdmin'
+import lvBusqueda from '@/components/shared/CajaBusqueda'
+
+import {mapGetters} from 'vuex'
 
 export default {
   name: 'Header',
   components: {
-    lvHeaderMovil, lvHeaderDestock
+    lvHeaderMovil, lvHeaderDestock, lvBarraAdmin, lvBusqueda
+  },
+  computed: {
+    ...mapGetters(['getPerfil', 'getTiendaBusqueda'])
   }
 }
 </script>
@@ -22,5 +32,17 @@ header{
 	z-index: 9;
 	width: 100%;
   top: 0px;
+}
+
+.slidebusqueda-enter-active {
+  transition: all .3s ease;
+}
+.slidebusqueda-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slidebusqueda-enter, .slidebusqueda-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateY(-25px);
+  opacity: 0;
 }
 </style>

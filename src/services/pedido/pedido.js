@@ -13,6 +13,17 @@ lovizApiPedidoService.buscarPedido = function (pedido) {
   .catch(err => err.data)
 }
 
+lovizApiPedidoService.buscarPedidos = function () {
+  const token = localStorage.getItem('token')
+  return lovizApiService.get(`/pedidos/`, {
+    headers: {
+      'Authorization': 'JWT ' + token
+    }
+  })
+  .then(res => res.data)
+  .catch(err => err.data)
+}
+
 lovizApiPedidoService.editarPedido = function (pedido) {
   const token = localStorage.getItem('token')
   return lovizApiService.put(`/pedidos/${pedido.id}/`, pedido, {

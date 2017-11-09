@@ -72,14 +72,19 @@ const actions = {
     return promise
   },
   buscarCartCookie (context, cookie) {
-    lovizApiCartServices.getCartCookie(cookie)
-    .then(res => {
-      if (res.detail) {
-        context.commit('changeCartError', true)
-      } else {
-        context.commit('assignarCart', res)
-      }
+    const promise = new Promise(function (resolve, reject) {
+      lovizApiCartServices.getCartCookie(cookie)
+      .then(res => {
+        if (res.detail) {
+          context.commit('changeCartError', true)
+        } else {
+          context.commit('assignarCart', res)
+        }
+        resolve(res)
+        reject(res)
+      })
     })
+    return promise
   },
   buscarCartLogin (context) {
     lovizApiCartServices.getCartLogin()

@@ -1,19 +1,14 @@
 <template lang="pug">
-.producto
+.producto(v-if="getproductoActual.id")
   .hero-producto
   .producto-detalle-imagen
     lv-galeria-mobil.is-hidden-tablet(:producto="getproductoActual")
-    .galeria-full.is-hidden-mobile
-      .thums
-        ul
-          li(v-for="img in getproductoActual.imagenes_producto")
-            img(:src="img.imagen_thum",@click="cambiarImagen(img.orden)")
-      lv-galeria-destock(:primera_imagen="primera_imagen")
+    lv-galeria-destock.is-hidden-mobile(:producto="getproductoActual")
     .info
       .card.z-depth-5
         .card-content
           .producto-name
-            span.texto-impacto.texto-2 Hombre
+            span.texto-impacto.texto-2 
             .title {{getproductoActual.nombre}}
             .subtitle ({{getproductoActual.texto_variacion}})
           .producto-categoria
@@ -37,8 +32,13 @@
               span.texto-impacto.texto-2 Danos tu Opinion
           .producto-variaciones
             .variacion-seleccion
-              .titulo-seleccion.texto-impacto.texto-2 Seleccionado:
+              .titulo-seleccion.texto-impacto.texto-2 Variaciones:
               .valor-seleccion {{getproductoActual.color}}
+              span(v-if="getPerfil.staff")
+                router-link.button(:to="{name: 'Add_Variacion', params: {slug: getproductoActual.slug}}")
+                  span.icon
+                    i.fa.fa-plus
+                  span Agregar una variacion
               .opciones-seleccion
                 ul
                   li.selecionado
@@ -48,7 +48,7 @@
                   li(v-for="relacion in getproductoActual.relaciones")
                     figure
                       router-link(:to="`/producto/${relacion.slug}`")
-                        img(:src="relacion.thum")
+                        img(:src="relacion.thum")                  
             .variacion-talla
               .titulo-seleccion.texto-impacto.texto-2 Tallas Disponibles: {{this.getTallaSeleccionada.talla}}
               .opciones-seleccion.talla-opciones
@@ -86,12 +86,12 @@
 </template>
 
 <script>
-import {mapMutations, mapGetters} from 'vuex'
+import {mapMutations, mapGetters, mapActions} from 'vuex'
 
 import lvAddToCart from '@/components/producto/AddToCart'
 import lvSeparador from '@/components/shared/Separador'
 import lvGaleriaMobil from '@/components/producto/GaleriaMobil'
-import lvGaleriaDestock from '@/components/producto/GaleriaDestok'
+import lvGaleriaDestock from '@/components/producto/galeria/GaleriaDestock'
 import lvFormComent from '@/components/producto/FormComent'
 import lvSectionReview from '@/components/producto/SectionReviews'
 
@@ -116,7 +116,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getproductoActual', 'getTallaSeleccionada', 'getFormComent']),
+    ...mapGetters(['getproductoActual', 'getTallaSeleccionada', 'getFormComent', 'getPerfil']),
     primera_imagen () {
       if (!this.getproductoActual.id) {
         return
@@ -129,22 +129,19 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['buscarProducto', 'selecionTalla', 'verComentario', 'changeHeroTop']),
+    ...mapMutations(['selecionTalla', 'verComentario', 'changeHeroTop', 'changePageLoading']),
+    ...mapActions(['buscarProducto']),
     changeProductoSlug () {
+      this.changePageLoading(true)
       this.tallaSeleccionada = {}
       this.imagenSelecionada = ''
       this.productoSlug = this.$route.params.slug
-      // this.scrolltop()
+      this.$scrollTo('body')
     },
     buscarProductoSlug () {
       this.buscarProducto(this.productoSlug)
-    },
-    cambiarImagen (orden) {
-      const self = this
-      this.getproductoActual.imagenes_producto.forEach(function (valor) {
-        if (valor.orden === orden) {
-          self.imagenSelecionada = valor.imagen
-        }
+      .then(res => {
+        this.changePageLoading(false)
       })
     },
     changeFormComent (valor) {
@@ -208,6 +205,10 @@ export default {
       right: 50px;
       top: 10px;
       width: 430px;
+      @media screen and (max-width: 1215px) {
+        position: static;
+        width: 100%;
+      }
     }
   }
   .producto-detalles{
@@ -301,12 +302,6 @@ export default {
     }
   }
 }
-.galeria-full{
-  max-width: 1250px;
-  margin: 0 20px;
-  .thums{
-    width: 100px;
-    float: left;
-  }
-}
+
+
 </style>
