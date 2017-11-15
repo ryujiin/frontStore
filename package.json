@@ -30,6 +30,7 @@
     "vue-progressive-image": "^2.3.1",
     "vue-router": "^3.0.1",
     "vue-scrollto": "^2.7.9",
+    "vue2-multi-uploader": "^1.4.1",
     "vuex": "^3.0.0"
   },
   "devDependencies": {

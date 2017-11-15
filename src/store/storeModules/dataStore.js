@@ -33,8 +33,9 @@ const state = {
   },
   pageloading: true,
   tiendaBusqueda: false,
-  menuSlide: false
-
+  menuSlide: false,
+  modalFoto: false,
+  ComentFoto: ''
 }
 
 const mutations = {
@@ -50,6 +51,12 @@ const mutations = {
   },
   changeMenuSlide (state, valor) {
     state.menuSlide = valor
+  },
+  changeModalFoto (state, valor) {
+    state.modalFoto = valor
+  },
+  changeFotoComent (state, valor) {
+    state.ComentFoto = valor
   }
 }
 
@@ -57,7 +64,9 @@ const getters = {
   getTienda: state => state.tienda,
   getPageloading: state => state.pageloading,
   getTiendaBusqueda: state => state.tiendaBusqueda,
-  getMenuSlide: state => state.menuSlide
+  getMenuSlide: state => state.menuSlide,
+  getModalFoto: state => state.modalFoto,
+  getComentFoto: state => state.ComentFoto
 }
 
 export default{

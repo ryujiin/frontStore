@@ -11,7 +11,6 @@ lovizApiProductoService.getProductos = function (q) {
 }
 
 lovizApiProductoService.getProductoSingle = function (q) {
-  console.log(q)
   return lovizApiService.get('/catalogo/producto-single/', {
     params: q
   })
@@ -51,6 +50,20 @@ lovizApiProductoService.getComentarioProducto = function (p) {
   })
   .then(res => res.data)
   .catch(err => err.data)
+}
+// Administracion
+lovizApiProductoService.getProductosAdmin = function (q) {
+  return lovizApiService.get('/catalogo/productos/', {
+    params: q
+  })
+    .then(res => res.data)
+    .catch(err => err.data)
+}
+
+lovizApiProductoService.getProductoSingleAdmin = function (id) {
+  return lovizApiService.get(`/catalogo/producto-single/${id}`)
+    .then(res => res.data)
+    .catch(err => err.data)
 }
 
 export default lovizApiProductoService

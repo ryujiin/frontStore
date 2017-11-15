@@ -25,6 +25,25 @@ nav.navbar.header(role='navigation', aria-label='main navigation')
           i.fa.fa-user-o.fa-lg
       a.navbar-item
         lv-cart-button
+      .navbar-item.has-dropdown.is-hoverable(v-if="getPerfil.staff")
+        a.navbar-link(href='/admin/productos/')
+          | Admin
+        .navbar-dropdown.is-boxed
+          router-link.navbar-item(to='/admin/productos/')
+            | Productos
+          a.navbar-item(href='https://bulma.io/documentation/modifiers/syntax/')
+            | Modifiers
+          a.navbar-item(href='https://bulma.io/documentation/columns/basics/')
+            | Columns
+          a.navbar-item(href='https://bulma.io/documentation/layout/container/')
+            | Layout
+          a.navbar-item(href='https://bulma.io/documentation/form/general/')
+            | Form
+          hr.navbar-divider
+          a.navbar-item(href='https://bulma.io/documentation/elements/box/')
+            | Elements
+          a.navbar-item.is-active(href='https://bulma.io/documentation/components/breadcrumb/')
+            | Components
 </template>
 <script>
 import {mapMutations, mapGetters} from 'vuex'

@@ -9,6 +9,7 @@
     router-view
     lv-footer
     lv-modal-login
+    lv-modal-foto
 </template>
 
 <script>
@@ -20,12 +21,14 @@ import lvModalLogin from '@/components/user/ModalLogin.vue'
 import LvCartSlide from '@/components/layout/CartSlide.vue'
 import lvMenuMobilSlide from '@/components/layout/MenuMobilSlide.vue'
 
+import lvModalFoto from '@/components/shared/modalFoto'
+
 import {mapGetters, mapActions, mapMutations} from 'vuex'
 
 export default {
   name: 'app',
   components: {
-    LvHeader, LvFooter, lvModalLogin, LvCartSlide, lvPageLoader, lvMenuMobilSlide
+    LvHeader, LvFooter, lvModalLogin, LvCartSlide, lvPageLoader, lvMenuMobilSlide, lvModalFoto
   },
   computed: {
     ...mapGetters(['getCategorias', 'getPageloading'])
