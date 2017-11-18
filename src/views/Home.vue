@@ -11,8 +11,8 @@
     .container
       .columns
         carousel(:perPage="3")
-          slide(v-for="coment in comentarios" :key="coment.id")
-            .column(v-if="coment.activo")
+          slide(v-for="coment in comentarios" :key="coment.id" v-if="coment.activo")
+            .column
               lv-comentario(:comentario="coment", :producto="true")
 </template>
 

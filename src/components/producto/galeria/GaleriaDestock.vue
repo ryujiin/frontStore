@@ -1,5 +1,6 @@
 <template lang="pug">
 .galeria-full.is-hidden-mobile
+  lv-zoom-image(:imagen="imagenSeleccionada" v-on:siguente='siguienteImagen')
   .thums
     ul
       li(v-for="img in producto.imagenes_producto", :class="{'activo': img.orden === imagenSeleccionada.orden }" @click="cambiarImagen(img)")
@@ -8,7 +9,6 @@
         span mas Fotos
         span.icon
           i.fa.fa-plus
-  lv-zoom-image(:imagen="imagenSeleccionada" v-on:siguente='siguienteImagen')
   .modal(:class="{'is-active': modal}")
     .modal-background(@click="modal = false")
     .modal-card
@@ -28,6 +28,7 @@
       footer.modal-card-foot
         button.button.is-success Save changes
         button.button Cancel
+
 
 </template>
 
@@ -93,10 +94,12 @@ export default {
   max-width: 1250px;
   margin: 0 20px;
   .thums{
-    width: 100px;
-    float: left;
+    margin: 10px;
     ul{
       li{
+        width: 80px;
+        margin: 2px;
+        display: inline-block;
         cursor: pointer;
         border: 1px solid #fff;
         border-radius: 5px;

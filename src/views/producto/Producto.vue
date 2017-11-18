@@ -290,7 +290,7 @@ export default {
         .talla-opcion{
           display: inline-block;
           border: 1px solid #ccc;
-          margin: 0 10px 0 0;
+          margin: 0 10px 5px 0;
           color: #111;
           padding: 5px;
           cursor: pointer;

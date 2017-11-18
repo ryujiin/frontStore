@@ -27,7 +27,7 @@ const state = {
         ]
       },
       {id: 2, texto: 'Hombre', link: '/catalogo/hombre'},
-      {id: 3, texto: 'Kids', link: '/catalogo/Kids'},
+      {id: 3, texto: 'Kids', link: '/catalogo/kids'},
       {id: 4, texto: 'Oferta', link: '/catalogo/oferta'}
     ]
   },
