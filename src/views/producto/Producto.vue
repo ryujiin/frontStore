@@ -8,11 +8,13 @@
       .card.z-depth-5
         .card-content
           .producto-name
+            .estilo(v-for="cate in getproductoActual.categorias")
+              router-link(to="`/catalogo/${cate.slug}`" v-if="cate.seccion == 'categoria'") {{cate.nombre}}
             span.texto-impacto.texto-2 
             .title {{getproductoActual.nombre}}
             .subtitle ({{getproductoActual.texto_variacion}})
           .producto-categoria
-            .cates(v-for="cate in getproductoActual.categorias")
+            .cates(v-for="cate in getproductoActual.categorias" v-if="!cate.padre")
               router-link.texto-impacto.texto-2.texto-2.button.is-small(:to="`/catalogo/${cate.slug}`") {{cate.nombre}}
           .producto-precios
             .producto-precios-variacion(v-if="!getTallaSeleccionada.id")

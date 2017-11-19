@@ -7,6 +7,7 @@
       .barra
         .titulos
           .subtitle(v-if="getCategoriaPadre") {{getCategoriaPadre.nombre}}
+          .subtitle(v-else) Coleccion
           .title {{getCategoriaActual.nombre}}
         .menus
           .contador

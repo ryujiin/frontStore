@@ -49,15 +49,19 @@ export default {
 </script>
 
 <style lang="scss">
+@import url('https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed|Roboto+Condensed');
 @import '../node_modules/bulma/bulma.sass';
 
 .italic{
   font-style: italic;
   font-family: georgia;
 }
+.title, .subtitle{
+  font-family: 'Barlow Semi Condensed', sans-serif;
+}
 #app {
   margin-top: 75px;
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Roboto Condensed', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #111;

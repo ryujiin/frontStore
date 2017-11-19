@@ -69,8 +69,14 @@ export default {
   z-index: 10;
   min-height: 4.25rem;
 }
-.navbar-item img{
-  max-height: 3.75rem;
+.navbar-item {
+  text-transform: uppercase;
+  img{
+    max-height: 3.75rem;
+  } 
+}
+.navbar-link::after{
+  border-color: #111;
 }
 .header{
   box-shadow: 0 2px 5px rgba(0,0,0,.16);
