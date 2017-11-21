@@ -34,14 +34,17 @@ export default {
     ...mapGetters(['getCategorias', 'getPageloading'])
   },
   methods: {
-    ...mapActions(['buscarCategorias']),
+    ...mapActions(['buscarCategorias', 'buscarVariaciones']),
     ...mapMutations(['changePageLoading'])
   },
   created () {
     if (this.getCategorias.length === 0) {
       this.buscarCategorias(this.$route.params.slug)
       .then(res => {
-        this.changePageLoading(false)
+        this.buscarVariaciones()
+        .then(res => {
+          this.changePageLoading(false)
+        })
       })
     }
   }

@@ -1,6 +1,6 @@
 <template lang="pug">
 .galeria-full.is-hidden-mobile
-  lv-zoom-image(:imagen="imagenSeleccionada" v-on:siguente='siguienteImagen')
+  lv-zoom-image(:imagen="imagenSeleccionada" v-on:siguente='siguienteImagen' v-if="imagenSeleccionada")
   .thums
     ul
       li(v-for="img in producto.imagenes_producto", :class="{'activo': img.orden === imagenSeleccionada.orden }" @click="cambiarImagen(img)")

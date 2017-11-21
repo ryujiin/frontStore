@@ -1,3 +1,5 @@
+import lovizProductoService from '@/services/catalogo/productos'
+
 const state = {
   tienda: {
     telefono: '(511) 556-3367',
@@ -35,7 +37,8 @@ const state = {
   tiendaBusqueda: false,
   menuSlide: false,
   modalFoto: false,
-  ComentFoto: ''
+  ComentFoto: '',
+  variaciones: []
 }
 
 const mutations = {
@@ -57,6 +60,21 @@ const mutations = {
   },
   changeFotoComent (state, valor) {
     state.ComentFoto = valor
+  },
+  changeVariaciones (state, valor) {
+    state.variaciones = valor
+  }
+}
+const actions = {
+  buscarVariaciones (context) {
+    const promise = new Promise(function (resolve, reject) {
+      lovizProductoService.getVariaciones()
+      .then(res => {
+        context.commit('changeVariaciones', res.results)
+        resolve(res)
+      })
+    })
+    return promise
   }
 }
 
@@ -66,11 +84,13 @@ const getters = {
   getTiendaBusqueda: state => state.tiendaBusqueda,
   getMenuSlide: state => state.menuSlide,
   getModalFoto: state => state.modalFoto,
-  getComentFoto: state => state.ComentFoto
+  getComentFoto: state => state.ComentFoto,
+  getVariaciones: state => state.variaciones
 }
 
 export default{
   state,
   mutations,
+  actions,
   getters
 }

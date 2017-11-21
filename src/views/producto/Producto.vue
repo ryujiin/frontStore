@@ -7,6 +7,9 @@
     .info
       .card.z-depth-5
         .card-content
+          .botonesActivo.is-pulled-right
+            a.button.is-large.is-success(v-if="!getproductoActual.activo" @click="activar(true)") Activar
+            a.button.is-large.is-danger(v-else @click="activar(false)") Desactivar
           .producto-name
             .estilo(v-for="cate in getproductoActual.categorias")
               router-link(to="`/catalogo/${cate.slug}`" v-if="cate.seccion == 'categoria'") {{cate.nombre}}
@@ -58,6 +61,8 @@
                   v-for="varia in getproductoActual.variaciones",
                   @click="selecionTalla(varia)",
                   :class="{'activo' : getTallaSeleccionada == varia}") {{varia.talla}}
+                  .precio(v-if="getPerfil.staff") S/. {{varia.precio_venta}}
+                .talla-opcion(v-if="getPerfil.staff" @click="adminTalla = true") Agregar Talla
           lv-separador(:alto="10")
           lv-add-to-cart
   .producto-detalles
@@ -84,7 +89,7 @@
               img(src="/static/img/banner-verano.jpg")
         lv-section-review(:producto="getproductoActual" v-if="tabs.valor == 2")
   lv-form-coment(:producto='getproductoActual', :modal="formComent")
-    
+  lv-admin-talla(v-if="getPerfil.staff", :producto="getproductoActual", :modal="adminTalla", @modalFalse="adminTalla = false")
 </template>
 
 <script>
@@ -97,13 +102,17 @@ import lvGaleriaDestock from '@/components/producto/galeria/GaleriaDestock'
 import lvFormComent from '@/components/producto/FormComent'
 import lvSectionReview from '@/components/producto/SectionReviews'
 
+import lvAdminTalla from '@/components/admin/producto/ModalTalla'
+
 export default {
   name: 'Producto',
   components: {
-    lvAddToCart, lvSeparador, lvGaleriaMobil, lvGaleriaDestock, lvFormComent, lvSectionReview
+    lvAddToCart, lvSeparador, lvGaleriaMobil, lvGaleriaDestock, lvFormComent, lvSectionReview, lvAdminTalla
   },
   data () {
     return {
+      adminProducto: false,
+      adminTalla: false,
       productoSlug: '',
       imagenSelecionada: '',
       zoom: false,
@@ -118,7 +127,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getproductoActual', 'getTallaSeleccionada', 'getFormComent', 'getPerfil']),
+    ...mapGetters(['getproductoActual', 'getTallaSeleccionada', 'getFormComent', 'getPerfil', 'getToken']),
     primera_imagen () {
       if (!this.getproductoActual.id) {
         return
@@ -132,7 +141,7 @@ export default {
   },
   methods: {
     ...mapMutations(['selecionTalla', 'verComentario', 'changeHeroTop', 'changePageLoading']),
-    ...mapActions(['buscarProducto']),
+    ...mapActions(['buscarProducto', 'editarProducto']),
     changeProductoSlug () {
       this.changePageLoading(true)
       this.tallaSeleccionada = {}
@@ -158,6 +167,16 @@ export default {
         this.descripcion = this.getproductoActual.descripcion.slice(0, 150) + '...'
       }
       this.$emit('updateHead')
+    },
+    activar (valor) {
+      var producto = {
+        id: this.getproductoActual.id,
+        activo: valor
+      }
+      this.editarProducto(producto)
+      .then(res => {
+        this.buscarProducto(this.getproductoActual.slug)
+      })
     }
   },
   created () {
