@@ -52,6 +52,7 @@
                   span.icon
                     i.fa.fa-plus
                   span Agregar categoria
+                  
       p.has-text-centered
         a.button.is-success.is-large(@click="grabarProducto")
           span.icon
