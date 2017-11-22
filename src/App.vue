@@ -1,5 +1,5 @@
 <template lang="pug">
-  #app
+  #app(@mouseleave="mostrarCupon")
     transition(name="fade")
       lv-page-loader(v-if='getPageloading')
     vue-progress-bar
@@ -10,6 +10,7 @@
     lv-footer
     lv-modal-login
     lv-modal-foto
+    lv-modal-cupon
 </template>
 
 <script>
@@ -22,20 +23,26 @@ import LvCartSlide from '@/components/layout/CartSlide.vue'
 import lvMenuMobilSlide from '@/components/layout/MenuMobilSlide.vue'
 
 import lvModalFoto from '@/components/shared/modalFoto'
+import lvModalCupon from '@/components/shared/ModalCupon'
 
 import {mapGetters, mapActions, mapMutations} from 'vuex'
 
 export default {
   name: 'app',
   components: {
-    LvHeader, LvFooter, lvModalLogin, LvCartSlide, lvPageLoader, lvMenuMobilSlide, lvModalFoto
+    LvHeader, LvFooter, lvModalLogin, LvCartSlide, lvPageLoader, lvMenuMobilSlide, lvModalFoto, lvModalCupon
   },
   computed: {
-    ...mapGetters(['getCategorias', 'getPageloading'])
+    ...mapGetters(['getCategorias', 'getPageloading', 'getPerfil'])
   },
   methods: {
     ...mapActions(['buscarCategorias', 'buscarVariaciones']),
-    ...mapMutations(['changePageLoading'])
+    ...mapMutations(['changePageLoading', 'changeModalCupon']),
+    mostrarCupon () {
+      if (!this.getPerfil.id) {
+        this.changeModalCupon(true)
+      };
+    }
   },
   created () {
     if (this.getCategorias.length === 0) {

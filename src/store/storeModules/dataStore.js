@@ -38,7 +38,12 @@ const state = {
   menuSlide: false,
   modalFoto: false,
   ComentFoto: '',
-  variaciones: []
+  variaciones: [],
+  modalCupon: {
+    mostrado: false,
+    activo: false,
+    cupon: ''
+  }
 }
 
 const mutations = {
@@ -63,6 +68,19 @@ const mutations = {
   },
   changeVariaciones (state, valor) {
     state.variaciones = valor
+  },
+  changeModalCupon (state, valor) {
+    if (valor) {
+      if (!state.modalCupon.mostrado) {
+        state.modalCupon.mostrado = valor
+        state.modalCupon.activo = valor
+      }
+    } else {
+      state.modalCupon.activo = valor
+    }
+  },
+  setCupon (state, valor) {
+    state.modalCupon.cupon = valor
   }
 }
 const actions = {
@@ -85,7 +103,8 @@ const getters = {
   getMenuSlide: state => state.menuSlide,
   getModalFoto: state => state.modalFoto,
   getComentFoto: state => state.ComentFoto,
-  getVariaciones: state => state.variaciones
+  getVariaciones: state => state.variaciones,
+  getMoldaCupon: state => state.modalCupon
 }
 
 export default{

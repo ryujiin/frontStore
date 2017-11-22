@@ -7,7 +7,7 @@
     .info
       .card.z-depth-5
         .card-content
-          .botonesActivo.is-pulled-right
+          .botonesActivo.is-pulled-right(v-if="getPerfil.staff")
             a.button.is-large.is-success(v-if="!getproductoActual.activo" @click="activar(true)") Activar
             a.button.is-large.is-danger(v-else @click="activar(false)") Desactivar
           .producto-name
