@@ -14,7 +14,8 @@ import VueHead from 'vue-head'
 import VueScrollTo from 'vue-scrollto'
 import VueProgressiveImage from 'vue-progressive-image'
 
-import VueAnalytics from 'vue-analytics'
+import VueMultianalytics from 'vue-multianalytics'
+// import VueAnalytics from 'vue-analytics'
 
 const options = {
   color: '#23d160',
@@ -55,10 +56,33 @@ Vue.use(VueLocalStorage, {
   createComputed: true // created computed members from your variable declarations
 })
 
-Vue.use(VueAnalytics, {
-  id: 'UA-109870526-1',
-  router
+let gaConfig = {
+  appName: 'Test', // Mandatory
+  appVersion: '0.1', // Mandatory
+  trackingId: 'UA-109870526-1', // Mandatory
+  ecommerce: true,
+  debug: true // Whether or not display console logs debugs (optional)
+}
+
+let faceConfig = {
+  token: '1027660967285190',
+  debug: true
+}
+
+Vue.use(VueMultianalytics, {
+  modules: {
+    ga: gaConfig,
+    facebook: faceConfig
+  },
+  routing: {
+    vueRouter: router
+  }
 })
+
+// Vue.use(VueAnalytics, {
+  // id: 'UA-109870526-1',
+  // router
+// })
 
 /* eslint-disable no-new */
 new Vue({
