@@ -50,6 +50,7 @@ export default {
       .then(res => {
         this.buscarVariaciones()
         .then(res => {
+          this.$ma.trackEvent({category: 'Lead', action: 'Entro a la web', label: 'Solo inicio'})
           this.changePageLoading(false)
         })
       })

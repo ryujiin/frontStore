@@ -11,17 +11,20 @@
         span.des_por % 
         span.des Dscto.
       .formulario(v-if="estado == 1 || estado == 2")
-        p.has-text-danger(v-show="text_error") {{text_error}}
-        .field.has-addons
-          .control
-            input.input(v-validate="'required|email'" 
-                        :class="{'input': true, 'is-danger': errors.has('email') }"
-                        type='email', 
-                        placeholder='Correo Electronico' v-model="email" name="email")
+        .columns
+          .column.is-8.is-offset-2
+            p.has-text-danger(v-show="text_error") {{text_error}}
+            .field.is-grouped
+              p.control.is-expanded
+                input.input(v-validate="'required|email'" 
+                            :class="{'input': true, 'is-danger': errors.has('email') }"
+                            type='email', 
+                            placeholder='Correo Electronico' v-model="email" name="email",
+                            @keyup.enter="crearCupon")
+              p.control
+                a.button.is-danger(@click="crearCupon", :class="{'is-loading': estado === 2}")
+                  | Obtener 20% de Dsct.
             p.help.is-danger(v-show="errors.has('email')") Ingrese un correo valido
-          .control
-            a.button.is-danger(@click="crearCupon", :class="{'is-loading': estado === 2}")
-              | Obtener 20% de Dsct.
       .codigo(v-if="estado == 3")
         .title Su codigo es : {{getMoldaCupon.cupon}}
       .foter
@@ -90,9 +93,6 @@ export default {
     border-top: 1px dotted #ccc;
     border-bottom: 1px dotted #ccc;
     padding: 5px;
-  }
-  .field{
-    margin: 0px 80px 10px;
   }
   .foter{
     border-top: 1px dotted;
