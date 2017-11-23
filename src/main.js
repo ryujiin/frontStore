@@ -13,7 +13,9 @@ import VueLocalStorage from 'vue-localstorage'
 import VueHead from 'vue-head'
 import VueScrollTo from 'vue-scrollto'
 import VueProgressiveImage from 'vue-progressive-image'
+
 import VueAnalytics from 'vue-analytics'
+import VueFacebookPixel from 'vue-analytics-facebook-pixel'
 
 const options = {
   color: '#23d160',
@@ -57,6 +59,14 @@ Vue.use(VueLocalStorage, {
 Vue.use(VueAnalytics, {
   id: 'UA-109870526-1',
   router
+})
+
+Vue.use(VueFacebookPixel, {
+  router
+})
+
+Vue.analytics.fbq.init('1027660967285190', {
+  em: 'kike_2210@hotmail.com'
 })
 
 /* eslint-disable no-new */
