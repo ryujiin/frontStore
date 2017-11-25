@@ -43,4 +43,11 @@ function deleteImageProducto (token, id) {
   .catch(err => err.data)
 }
 
-export { upload, editProfileFoto, uploadImageProducto, deleteImageProducto }
+function uploadImageCustom (formData) {
+  const url = `${BASE_URL}/custom/imageForm/`
+  return axios.post(url, formData)
+  .then(res => res.data)
+  .catch(err => err.data)
+}
+
+export { upload, editProfileFoto, uploadImageProducto, deleteImageProducto, uploadImageCustom }

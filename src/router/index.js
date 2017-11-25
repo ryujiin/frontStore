@@ -2,7 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from '@/views/Home'
+
 import Producto from '@/views/producto/Producto'
+import Custom from '@/views/Custom'
+import Perzonaliza from '@/views/Perzonaliza'
+
 import Perfil from '@/views/perfil/PageUser'
 import Catalogo from '@/views/catalogo/CatalogoPage'
 import Checkout from '@/views/Checkout'
@@ -95,6 +99,16 @@ export default new Router({
       path: '/admin/productos',
       name: 'AdminListaProductos',
       component: AdminListaProductos
+    },
+    {
+      path: '/custom/:slug',
+      name: 'Custom',
+      component: Custom
+    },
+    {
+      path: '/personaliza/',
+      name: 'Perzonaliza',
+      component: Perzonaliza
     }
   ]
 })

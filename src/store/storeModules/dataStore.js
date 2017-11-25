@@ -30,7 +30,8 @@ const state = {
       },
       {id: 2, texto: 'Hombre', link: '/catalogo/hombre'},
       {id: 3, texto: 'Kids', link: '/catalogo/kids'},
-      {id: 4, texto: 'Oferta', link: '/catalogo/oferta'}
+      {id: 4, texto: 'Oferta', link: '/catalogo/oferta'},
+      {id: 5, texto: 'Custom', link: '/personaliza/'}
     ]
   },
   pageloading: true,
@@ -81,6 +82,9 @@ const mutations = {
   },
   setCupon (state, valor) {
     state.modalCupon.cupon = valor
+  },
+  noMostrarCupon (state) {
+    state.modalCupon.mostrado = true
   }
 }
 const actions = {

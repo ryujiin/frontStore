@@ -1,6 +1,34 @@
 <template lang="pug">
 .home
   lv-hero
+  lv-separador(v-if="false" alto='50')
+  lv-titulo(v-if="false" titulo="Personalizalo", subtitulo="El diseño que quieras")
+  .container(v-if="false")
+    .columns.perzonaliza
+      .column(@click="go_to('/custom/zapatilla-slip-on/')")
+        .card
+          .card-image
+            figure.image.is-4by3
+              img(src='https://bulma.io/images/placeholders/1280x960.png', alt='Placeholder image')
+        .subtitle.has-text-centered Zapatillas Slip on
+      .column(@click="go_to('/custom/zapatilla-slip-on/')")
+        .card
+          .card-image
+            figure.image.is-4by3
+              img(src='https://bulma.io/images/placeholders/1280x960.png', alt='Placeholder image')
+        .subtitle.has-text-centered Zapatillas De Niños
+      .column(@click="go_to('/custom/zapatilla-slip-on/')")
+        .card
+          .card-image
+            figure.image.is-4by3
+              img(src='https://bulma.io/images/placeholders/1280x960.png', alt='Placeholder image')
+        .subtitle.has-text-centered Pantuflas Scuffs
+      .column(@click="go_to('/custom/zapatilla-slip-on/')")
+        .card
+          .card-image
+            figure.image.is-4by3
+              img(src='https://bulma.io/images/placeholders/1280x960.png', alt='Placeholder image')
+        .subtitle.has-text-centered Pantuflas Altas
   lv-separador(alto='50')
   lv-titulo(titulo="Productos Destacados", subtitulo="Hecho solo para ti")
   .container
@@ -54,6 +82,11 @@ export default {
     .then(res => {
       this.comentarios = res.results
     })
+  },
+  methods: {
+    go_to (link) {
+      this.$router.push(link)
+    }
   }
 }
 </script>
@@ -61,5 +94,16 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 
 <style lang="scss" scoped>
-
+.perzonaliza{
+  .column{
+    &:hover{
+      cursor: pointer;
+      text-decoration: underline;
+    }  
+  }  
+  .subtitle{
+    color: #111;
+    margin-top: 5px;
+  }
+}
 </style>
